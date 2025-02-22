@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function Cart() {
   const { cart, removeFromCart, updateCartQuantity } = useAppContext();
-  const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+  const total = cart.reduce((acc, item) => acc + (item.productId.price * item.qty), 0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,14 +28,14 @@ function Cart() {
             </thead>
             <tbody>
               {cart.map(item => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>${item.price}</td>
+                <tr key={item.productId._id}>
+                  <td>{item.productId.name}</td>
+                  <td>${item.productId.price}</td>
                   <td>
                     <Button
                       variant="outline-secondary"
                       size="sm"
-                      onClick={() => updateCartQuantity(item.id, -1)}
+                      onClick={() => updateCartQuantity(item.productId._id, -1)}
                       className="me-2"
                     >
                       -
@@ -44,18 +44,18 @@ function Cart() {
                     <Button
                       variant="outline-secondary"
                       size="sm"
-                      onClick={() => updateCartQuantity(item.id, 1)}
+                      onClick={() => updateCartQuantity(item.productId._id, 1)}
                       className="ms-2"
                     >
                       +
                     </Button>
                   </td>
-                  <td>${(item.price * item.qty).toFixed(2)}</td>
+                  <td>${(item.productId.price * item.qty).toFixed(2)}</td>
                   <td>
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() => removeFromCart(item.id)}
+                      onClick={() => removeFromCart(item.productId._id)}
                     >
                       Eliminar
                     </Button>
@@ -117,9 +117,11 @@ function Cart() {
 Cart.propTypes = {
   cart: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      productId: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+      }),
       qty: PropTypes.number.isRequired,
     })
   ),

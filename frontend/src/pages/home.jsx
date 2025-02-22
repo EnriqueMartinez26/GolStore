@@ -1,29 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Carousel, Pagination } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categories';
+import api from '../api';
 
 function Home() {
-  const products = Array.from({ length: 30 }, (_, i) => ({
-    id: i + 1,
-    name: `Camiseta ${i + 1}`,
-    price: 50 + i * 10,
-    image: `https://via.placeholder.com/150`,
-  }));
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = {
+    xs: 10,
+    md: 12,
+    lg: 15,
+  };
 
   const featuredItems = [
     { id: 1, name: 'Camiseta Boca', image: 'https://via.placeholder.com/800x300' },
     { id: 2, name: 'Camiseta River', image: 'https://via.placeholder.com/800x300' },
   ];
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = {
-    xs: 10, // 5 filas de 2 en mobile
-    md: 12, // 4 filas de 3 en tablet
-    lg: 15, // 3 filas de 5 en web
-  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get('/products');
+        setProducts(response.data);
+      } catch (err) {
+        console.error('Error al cargar productos:', err);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-  // Determina ítems por página según el tamaño de pantalla (simulado aquí)
   const currentItemsPerPage = window.innerWidth >= 992 ? itemsPerPage.lg : 
                              window.innerWidth >= 768 ? itemsPerPage.md : itemsPerPage.xs;
   const totalPages = Math.ceil(products.length / currentItemsPerPage);
@@ -61,7 +67,7 @@ function Home() {
         <Col md={9}>
           <Row xs={2} md={3} lg={5} className="g-4">
             {paginatedProducts.map(product => (
-              <Col key={product.id}>
+              <Col key={product._id}>
                 <ProductCard product={product} />
               </Col>
             ))}

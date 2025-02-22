@@ -1,30 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import { useLocation } from 'react-router-dom';
+import api from '../api';
 
 function SearchResults() {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q')?.toLowerCase() || '';
+  const [results, setResults] = useState([]);
   
-  // Datos de ejemplo (luego conectarías una API)
-  const allProducts = Array.from({ length: 30 }, (_, i) => ({
-    id: i + 1,
-    name: `Camiseta ${i + 1}`,
-    price: 50 + i * 10,
-    image: `https://via.placeholder.com/150`,
-  }));
-
-  const results = allProducts.filter(product => 
-    product.name.toLowerCase().includes(query)
-  );
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = {
-    xs: 10, // 5 filas de 2 en mobile
-    md: 12, // 4 filas de 3 en tablet
-    lg: 15, // 3 filas de 5 en web
+    xs: 10,
+    md: 12,
+    lg: 15,
   };
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const response = await api.get('/products/search', { params: { q: query } });
+        setResults(response.data);
+      } catch (err) {
+        console.error('Error al buscar productos:', err);
+      }
+    };
+    fetchResults();
+  }, [query]);
 
   const currentItemsPerPage = window.innerWidth >= 992 ? itemsPerPage.lg : 
                              window.innerWidth >= 768 ? itemsPerPage.md : itemsPerPage.xs;
@@ -43,7 +45,7 @@ function SearchResults() {
         <>
           <Row xs={2} md={3} lg={5} className="g-4">
             {paginatedResults.map(product => (
-              <Col key={product.id}>
+              <Col key={product._id}>
                 <ProductCard product={product} />
               </Col>
             ))}

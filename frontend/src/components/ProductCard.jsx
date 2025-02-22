@@ -6,11 +6,15 @@ import PropTypes from 'prop-types';
 
 function ProductCard({ product }) {
   const { addToCart, addToFavorites, removeFromFavorites, favorites } = useAppContext();
-  const [isFavorite, setIsFavorite] = useState(favorites.some(item => item.id === product.id));
+  const [isFavorite, setIsFavorite] = useState(favorites.some(item => item._id === product._id));
 
   const handleFavorite = () => {
+    if (!product._id) {
+      console.error('product._id es undefined:', product);
+      return;
+    }
     if (isFavorite) {
-      removeFromFavorites(product.id);
+      removeFromFavorites(product._id);
     } else {
       addToFavorites(product);
     }
@@ -41,10 +45,10 @@ function ProductCard({ product }) {
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
   }).isRequired,
 };
 

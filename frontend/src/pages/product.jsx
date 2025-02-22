@@ -1,16 +1,33 @@
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { useAppContext } from '../AppContextUtils';
+import { useState, useEffect } from 'react';
+import api from '../api';
 
 function Product() {
   const { id } = useParams();
-  // Ejemplo de producto (en un caso real, vendría de una API)
-  const product = {
-    id,
-    name: `Camiseta ${id}`,
-    price: 50 + Number(id) * 10,
-    image: 'https://via.placeholder.com/300',
-    description: 'Camiseta oficial de fútbol, edición 2025.',
-  };
+  const { addToCart, addToFavorites } = useAppContext();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`/products/${id}`);
+        setProduct(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Error al cargar el producto');
+        setLoading(false);
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  if (loading) return <Container className="my-4"><p>Cargando...</p></Container>;
+  if (error) return <Container className="my-4"><p>{error}</p></Container>;
+  if (!product) return <Container className="my-4"><p>Producto no encontrado</p></Container>;
 
   return (
     <Container className="my-4">
@@ -22,8 +39,12 @@ function Product() {
           <h1>{product.name}</h1>
           <p className="text-muted">${product.price}</p>
           <p>{product.description}</p>
-          <Button variant="primary" className="me-2">Agregar al Carrito</Button>
-          <Button variant="outline-danger">Marcar como Favorito</Button>
+          <Button variant="primary" className="me-2" onClick={() => addToCart(product)}>
+            Agregar al Carrito
+          </Button>
+          <Button variant="outline-danger" onClick={() => addToFavorites(product)}>
+            Marcar como Favorito
+          </Button>
         </Col>
       </Row>
     </Container>

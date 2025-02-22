@@ -8,9 +8,9 @@ function Favorites() {
   
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = {
-    xs: 10, // 5 filas de 2 en mobile
-    md: 12, // 4 filas de 3 en tablet
-    lg: 15, // 3 filas de 5 en web
+    xs: 10,
+    md: 12,
+    lg: 15,
   };
 
   const currentItemsPerPage = window.innerWidth >= 992 ? itemsPerPage.lg : 
@@ -30,7 +30,7 @@ function Favorites() {
         <>
           <Row xs={2} md={3} lg={5} className="g-4">
             {paginatedFavorites.map(product => (
-              <Col key={product.id}>
+              <Col key={product._id}>
                 <ProductCard product={product} />
               </Col>
             ))}
