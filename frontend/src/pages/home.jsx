@@ -65,13 +65,15 @@ function Home() {
           </div>
         </Col>
         <Col md={9}>
-          <Row xs={2} md={3} lg={5} className="g-4">
-            {paginatedProducts.map(product => (
-              <Col key={product._id}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          </Row>
+          <div className="d-flex flex-wrap">
+            <Row xs={2} md={3} lg={5} className="g-4 w-100">
+              {paginatedProducts.map(product => (
+                <Col key={product._id}>
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          </div>
           <Pagination className="justify-content-center mt-4">
             <Pagination.Prev
               onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}

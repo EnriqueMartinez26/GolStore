@@ -9,6 +9,7 @@ import Favorites from './pages/Favorites';
 import SearchResults from './pages/SearchResults';
 import RecoverPassword from './pages/RecoverPassword';
 import AppProvider from './AppContext'; 
+import Destacado from './pages/Destacado';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/recover-password" element={<RecoverPassword />} />
+              <Route path="/featured" element={<Destacado />} />
             </Routes>
           </main>
           <Footer />

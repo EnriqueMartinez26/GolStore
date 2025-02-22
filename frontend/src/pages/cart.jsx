@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 function Cart() {
   const { cart, removeFromCart, updateCartQuantity } = useAppContext();
   const total = cart.reduce((acc, item) => acc + (item.productId.price * item.qty), 0);
+  const formattedTotal = `$${total.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,12 +31,15 @@ function Cart() {
               {cart.map(item => (
                 <tr key={item.productId._id}>
                   <td>{item.productId.name}</td>
-                  <td>${item.productId.price}</td>
+                  <td>{`$${item.productId.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`}</td>
                   <td>
                     <Button
                       variant="outline-secondary"
                       size="sm"
-                      onClick={() => updateCartQuantity(item.productId._id, -1)}
+                      onClick={() => {
+                        console.log('Reduciendo cantidad para:', item.productId._id);
+                        updateCartQuantity(item.productId._id, -1);
+                      }}
                       className="me-2"
                     >
                       -
@@ -44,13 +48,16 @@ function Cart() {
                     <Button
                       variant="outline-secondary"
                       size="sm"
-                      onClick={() => updateCartQuantity(item.productId._id, 1)}
+                      onClick={() => {
+                        console.log('Aumentando cantidad para:', item.productId._id);
+                        updateCartQuantity(item.productId._id, 1);
+                      }}
                       className="ms-2"
                     >
                       +
                     </Button>
                   </td>
-                  <td>${(item.productId.price * item.qty).toFixed(2)}</td>
+                  <td>{`$${(item.productId.price * item.qty).toLocaleString('en-US', { maximumFractionDigits: 0 })}`}</td>
                   <td>
                     <Button
                       variant="danger"
@@ -70,7 +77,7 @@ function Cart() {
         </Col>
         <Col md={4}>
           <h4>Resumen</h4>
-          <p><strong>Total: ${total.toFixed(2)}</strong></p>
+          <p><strong>Total: {formattedTotal}</strong></p>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="cardNumber">
               <Form.Label>Número de Tarjeta</Form.Label>

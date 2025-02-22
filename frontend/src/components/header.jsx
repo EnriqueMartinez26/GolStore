@@ -35,7 +35,7 @@ function Header() {
     <Navbar bg="dark" variant="dark" expand="lg" className="py-3">
       <Container>
         <Navbar.Brand href="/">
-          <img src="../assets/LOGO.png" alt="GolStore" height="40" />
+          <img src="../assets/logo2.png" alt="GolStore" height="40" />
         </Navbar.Brand>
         <div className="d-flex align-items-center">
           {isSearchActive ? (

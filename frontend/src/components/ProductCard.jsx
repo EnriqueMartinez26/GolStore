@@ -21,22 +21,29 @@ function ProductCard({ product }) {
     setIsFavorite(!isFavorite);
   };
 
+  const formattedPrice = `$${product.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+
   return (
-    <Card>
-      <Card.Img variant="top" src={product.image} />
-      <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        <Card.Text>${product.price}</Card.Text>
-        <div className="d-flex justify-content-between">
-          <Button
-            variant={isFavorite ? 'danger' : 'outline-danger'}
-            onClick={handleFavorite}
-          >
-            <FaHeart />
-          </Button>
-          <Button variant="primary" onClick={() => addToCart(product)}>
-            Comprar
-          </Button>
+    <Card className="h-100 d-flex flex-column" style={{ minHeight: '350px' }}>
+      <Card.Img variant="top" src={product.image} className="card-img-top" style={{ height: '250px', objectFit: 'contain'  }} />
+      <Card.Body className="d-flex flex-column justify-content-between flex-grow-1">
+        <div className="d-flex flex-column" style={{ minHeight: '100px' }}>
+          <Card.Title className="mb-2" style={{ wordBreak: 'break-word' }}>{product.name}</Card.Title>
+          <Card.Text className="mb-0" style={{ marginTop: 'auto' }}>{formattedPrice}</Card.Text>
+        </div>
+        <div className="mt-auto">
+          <div className="d-flex justify-content-between">
+            <Button
+              variant={isFavorite ? 'danger' : 'outline-danger'}
+              onClick={handleFavorite}
+              size="sm"
+            >
+              <FaHeart />
+            </Button>
+            <Button variant="primary" onClick={() => addToCart(product)} size="sm">
+              Comprar
+            </Button>
+          </div>
         </div>
       </Card.Body>
     </Card>

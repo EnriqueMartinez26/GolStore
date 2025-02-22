@@ -29,6 +29,8 @@ function Product() {
   if (error) return <Container className="my-4"><p>{error}</p></Container>;
   if (!product) return <Container className="my-4"><p>Producto no encontrado</p></Container>;
 
+  const formattedPrice = `$${product.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
+
   return (
     <Container className="my-4">
       <Row>
@@ -37,7 +39,7 @@ function Product() {
         </Col>
         <Col md={6}>
           <h1>{product.name}</h1>
-          <p className="text-muted">${product.price}</p>
+          <p className="text-muted">{formattedPrice}</p>
           <p>{product.description}</p>
           <Button variant="primary" className="me-2" onClick={() => addToCart(product)}>
             Agregar al Carrito

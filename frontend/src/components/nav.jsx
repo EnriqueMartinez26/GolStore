@@ -18,7 +18,7 @@ function Nav() {
           placement="end"
           show={showMenu}
           onHide={() => setShowMenu(false)}
-          className="w-75" // Ajusta el ancho del menú en mobile
+          className="w-75" 
         >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title id="offcanvasNavbarLabel">GolStore</Offcanvas.Title>

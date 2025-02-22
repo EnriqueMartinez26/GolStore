@@ -1,0 +1,22 @@
+.product-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+  }
+  
+  .product-card-img {
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .product-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card-img-top {
+    height: 250px;
+    object-fit: contain;
+    width: 100%;
+  }
