@@ -10,6 +10,12 @@ import SearchResults from './pages/SearchResults';
 import RecoverPassword from './pages/RecoverPassword';
 import AppProvider from './AppContext'; 
 import Destacado from './pages/Destacado';
+import LigaArgentina from './pages/LigaArg';
+import LaLiga from './pages/LaLiga';
+import Premier from './pages/Premier';
+import SerieA from './pages/SerieA';
+import Resto from './pages/resto';
+import Contacto from './pages/contacto';
 
 function App() {
   return (
@@ -25,8 +31,14 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/search" element={<SearchResults />} />
+              <Route path="/contacto" element={<Contacto />} />
               <Route path="/recover-password" element={<RecoverPassword />} />
-              <Route path="/featured" element={<Destacado />} />
+              <Route path="/destacado" element={<Destacado />} />
+              <Route path="/liga-argentina" element={<LigaArgentina />} />
+              <Route path="/laliga" element={<LaLiga />} />
+              <Route path="/premier-league" element={<Premier />} />
+              <Route path="/serie-a" element={<SerieA />} />
+              <Route path="/resto" element={<Resto />} />
             </Routes>
           </main>
           <Footer />

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, ListGroup } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
 import { useAppContext } from '../AppContextUtils';
 import PropTypes from 'prop-types';
@@ -24,27 +24,38 @@ function ProductCard({ product }) {
   const formattedPrice = `$${product.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 
   return (
-    <Card className="h-100 d-flex flex-column" style={{ minHeight: '350px' }}>
-      <Card.Img variant="top" src={product.image} className="card-img-top" style={{ height: '250px', objectFit: 'contain'  }} />
-      <Card.Body className="d-flex flex-column justify-content-between flex-grow-1">
-        <div className="d-flex flex-column" style={{ minHeight: '100px' }}>
-          <Card.Title className="mb-2" style={{ wordBreak: 'break-word' }}>{product.name}</Card.Title>
-          <Card.Text className="mb-0" style={{ marginTop: 'auto' }}>{formattedPrice}</Card.Text>
-        </div>
-        <div className="mt-auto">
-          <div className="d-flex justify-content-between">
-            <Button
-              variant={isFavorite ? 'danger' : 'outline-danger'}
-              onClick={handleFavorite}
-              size="sm"
-            >
-              <FaHeart />
-            </Button>
-            <Button variant="primary" onClick={() => addToCart(product)} size="sm">
-              Comprar
-            </Button>
-          </div>
-        </div>
+    <Card className="h-100 d-flex flex-column shadow-sm" style={{ minHeight: '320px', borderRadius: '12px' }}>
+      <Card.Img 
+        variant="top" 
+        src={product.image} 
+        className="img-fluid" 
+        style={{ height: '200px', objectFit: 'cover', borderTopLeftRadius: '12px', borderTopRightRadius: '12px' }} 
+      />
+      <ListGroup className="list-group-flush flex-grow-1 d-flex flex-column">
+        <ListGroup.Item className="py-2 px-3">
+          <Card.Title className="mb-0" style={{ fontSize: '1rem', lineHeight: '1.2', whiteSpace: 'normal', overflowWrap: 'break-word' }}>{product.name}</Card.Title>
+        </ListGroup.Item>
+        <ListGroup.Item className="py-2 px-3 flex-grow-1 d-flex align-items-end">
+          <Card.Text className="mb-0 fw-bold text-dark" style={{ fontSize: '1.1rem' }}>{formattedPrice}</Card.Text>
+        </ListGroup.Item>
+      </ListGroup>
+      <Card.Body className="d-flex justify-content-between align-items-center mt-auto px-3 py-2">
+        <Button
+          variant={isFavorite ? 'danger' : 'outline-danger'}
+          onClick={handleFavorite}
+          size="sm"
+          className="rounded-pill"
+        >
+          <FaHeart />
+        </Button>
+        <Button 
+          variant="primary" 
+          onClick={() => addToCart(product)} 
+          size="sm" 
+          className="rounded-pill"
+        >
+          Comprar
+        </Button>
       </Card.Body>
     </Card>
   );

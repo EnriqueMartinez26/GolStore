@@ -43,13 +43,15 @@ function SearchResults() {
       <h2>Resultados de búsqueda para &quot;{query}&quot;</h2>
       {results.length > 0 ? (
         <>
-          <Row xs={2} md={3} lg={5} className="g-4">
-            {paginatedResults.map(product => (
-              <Col key={product._id}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          </Row>
+          <div className="d-flex flex-wrap">
+            <Row xs={2} md={3} lg={5} className="g-4 w-100">
+              {paginatedResults.map(product => (
+                <Col key={product._id} className="h-100">
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          </div>
           <Pagination className="justify-content-center mt-4">
             <Pagination.Prev
               onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
