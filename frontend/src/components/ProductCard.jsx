@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Card, Button, ListGroup } from 'react-bootstrap';
 import { FaHeart } from 'react-icons/fa';
+import { Check } from 'react-bootstrap-icons';
 import { useAppContext } from '../AppContextUtils';
 import PropTypes from 'prop-types';
 
 function ProductCard({ product }) {
   const { addToCart, addToFavorites, removeFromFavorites, favorites } = useAppContext();
   const [isFavorite, setIsFavorite] = useState(favorites.some(item => item._id === product._id));
+  const [isPurchased, setIsPurchased] = useState(false); // Estado para "Comprar"
 
   const handleFavorite = () => {
     if (!product._id) {
@@ -19,6 +21,13 @@ function ProductCard({ product }) {
       addToFavorites(product);
     }
     setIsFavorite(!isFavorite);
+  };
+
+  const handlePurchase = () => {
+    addToCart(product); // Llama a la función del contexto para agregar al carrito
+    setIsPurchased(true); // Marca como comprado
+    // Opcional: resetea el checkmark después de 2 segundos
+    setTimeout(() => setIsPurchased(false), 2000); // Resetear después de 2 segundos
   };
 
   const formattedPrice = `$${product.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
@@ -50,11 +59,11 @@ function ProductCard({ product }) {
         </Button>
         <Button 
           variant="primary" 
-          onClick={() => addToCart(product)} 
-          size="sm" 
-          className="rounded-pill"
+          onClick={handlePurchase} 
+          size="sm"
+          className="rounded-pill d-flex align-items-center"
         >
-          Comprar
+          {isPurchased ? <Check className="me-1" /> : 'Comprar'}
         </Button>
       </Card.Body>
     </Card>

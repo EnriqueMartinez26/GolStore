@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
-import ProductCard from '../components/ProductCard';
-import Categories from '../components/Categories';
-import api from '../api';
+import ProductCard from '../../components/ProductCard';
+import Categories from '../../components/Categories';
+import api from '../../api';
 
-function PremierLeague() {
+function LaLiga() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(10);
 
   useEffect(() => {
-    const fetchPremierLeagueProducts = async () => {
+    const fetchLaLigaProducts = async () => {
       try {
-        const response = await api.get('/products/search', { params: { q: 'liverpool|arsenal|manchester city|manchester united' } });
-        setProducts(response.data);
+        const response = await api.get('/products/search', { params: { q: 'barcelona|real madrid|atlético de madrid' } });
+        setProducts(response.data.filter(product => !/retro/i.test(product.name)));
       } catch (err) {
-        console.error('Error al cargar productos de la Premier League:', err);
+        console.error('Error al cargar productos de LaLiga:', err);
       }
     };
-    fetchPremierLeagueProducts();
+    fetchLaLigaProducts();
   }, []);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function PremierLeague() {
             </Pagination>
           )}
           {products.length === 0 && (
-            <p className="text-center">No hay productos de la Premier League disponibles.</p>
+            <p className="text-center">No hay productos de LaLiga disponibles.</p>
           )}
         </Col>
       </Row>
@@ -97,4 +97,4 @@ function PremierLeague() {
   );
 }
 
-export default PremierLeague;
+export default LaLiga;

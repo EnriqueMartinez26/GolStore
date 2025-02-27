@@ -14,8 +14,8 @@ function Destacado() {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        // Obtener productos destacados (los más recientes, o con featured: true si lo configuraste)
-        const response = await api.get('/products?sort=-_id&limit=6'); // 6 productos más recientes
+
+        const response = await api.get('/products?sort=-_id&limit=6'); 
         setFeaturedProducts(response.data);
         setLoading(false);
       } catch (err) {

@@ -1,21 +1,29 @@
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Carousel, Pagination } from 'react-bootstrap';
+import { Container, Row, Col, Carousel, Pagination, Image } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categories';
 import api from '../api';
+
+// Importa las imágenes localmente
+import boca from '../assets/Featured/Boca.jpg';
+import river from '../assets/Featured/River.jpg';
+import barcelona from '../assets/Featured/Barça.jpg';
+import atm from '../assets/Featured/ATM.jpeg';
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = {
-    xs: 10,
-    md: 12,
-    lg: 15,
+    xs: 6,
+    md: 12, 
+    lg: 15, 
   };
 
   const featuredItems = [
-    { id: 1, name: 'Camiseta Boca', image: 'https://via.placeholder.com/800x300' },
-    { id: 2, name: 'Camiseta River', image: 'https://via.placeholder.com/800x300' },
+    { id: 1, image: boca },
+    { id: 2, image: river },
+    { id: 3, image: barcelona },
+    { id: 4, image: atm },
   ];
 
   useEffect(() => {
@@ -42,29 +50,33 @@ function Home() {
 
   return (
     <Container className="my-4">
-      <Carousel className="mb-4">
-        {featuredItems.map(item => (
-          <Carousel.Item key={item.id}>
-            <img className="d-block w-100" src={item.image} alt={item.name} />
-            <Carousel.Caption>
-              <h3>{item.name}</h3>
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-      <Row className="d-none d-md-block mb-4">
-        <Col>
-          <img src="https://via.placeholder.com/1200x150" alt="Publicidad" className="w-100" />
-        </Col>
-      </Row>
       <Row>
         <Col md={3}>
+          <Carousel className="mb-4" controls={true} indicators={false}>
+            {featuredItems.map((item, index) => (
+              <Carousel.Item key={item.id} active={String(index === 0)}>
+                <div style={{ position: 'relative', paddingBottom: '66.67%' }} className="overflow-hidden">
+                  <Image 
+                    className="d-block position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+                    src={item.image} 
+                    alt={`Producto ${item.id}`}
+                    fluid
+                  />
+                </div>
+              </Carousel.Item>
+            ))}
+          </Carousel>
           <Categories />
           <div className="d-none d-md-block mt-4 bg-secondary text-white text-center p-4">
             Publicidad Lateral
           </div>
         </Col>
         <Col md={9}>
+          <Row className="d-none d-md-block mb-4">
+            <Col>
+              <img src="https://via.placeholder.com/1200x150" alt="Publicidad" className="w-100" />
+            </Col>
+          </Row>
           <div className="d-flex flex-wrap">
             <Row xs={2} md={3} lg={5} className="g-4 w-100">
               {paginatedProducts.map(product => (

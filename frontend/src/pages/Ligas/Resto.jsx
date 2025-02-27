@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
-import ProductCard from '../components/ProductCard';
-import Categories from '../components/Categories';
-import api from '../api';
+import ProductCard from '../../components/ProductCard';
+import Categories from '../../components/Categories';
+import api from '../../api';
 
-function LigaArgentina() {
+function Resto() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = {
@@ -14,20 +14,19 @@ function LigaArgentina() {
   };
 
   useEffect(() => {
-    const fetchArgentineProducts = async () => {
+    const fetchRestoProducts = async () => {
       try {
-
         const response = await api.get('/products/search', { 
           params: { 
-            q: 'boca juniors|river plate|independiente|racing|atlético tucumán' 
+            q: 'paris|bayern|dortmund|retro' 
           } 
         });
         setProducts(response.data);
       } catch (err) {
-        console.error('Error al cargar productos de la Liga Argentina:', err);
+        console.error('Error al cargar productos del Resto:', err);
       }
     };
-    fetchArgentineProducts();
+    fetchRestoProducts();
   }, []);
 
   const currentItemsPerPage = window.innerWidth >= 992 ? itemsPerPage.lg : 
@@ -42,7 +41,7 @@ function LigaArgentina() {
 
   return (
     <Container className="my-4">
-      <h1 className="text-center mb-4">Liga Argentina 2025</h1>
+      <h1 className="text-center mb-4">Resto</h1>
       <Row>
         <Col md={3}>
           <Categories />
@@ -52,7 +51,7 @@ function LigaArgentina() {
         </Col>
         <Col md={9}>
           <div className="d-flex flex-wrap">
-            <Row xs={2} md={3} lg={5} className="g-2 w-100">
+            <Row xs={2} md={3} lg={5} className="g-4 w-100">
               {paginatedProducts.map(product => (
                 <Col key={product._id} className="h-100">
                   <ProductCard product={product} />
@@ -82,7 +81,7 @@ function LigaArgentina() {
             </Pagination>
           )}
           {products.length === 0 && (
-            <p className="text-center">No hay productos de la Liga Argentina disponibles.</p>
+            <p className="text-center">No hay productos en Resto disponibles.</p>
           )}
         </Col>
       </Row>
@@ -90,4 +89,4 @@ function LigaArgentina() {
   );
 }
 
-export default LigaArgentina;
+export default Resto;

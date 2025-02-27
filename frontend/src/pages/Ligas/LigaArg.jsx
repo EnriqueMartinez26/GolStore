@@ -1,42 +1,37 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
-import ProductCard from '../components/ProductCard';
-import Categories from '../components/Categories';
-import api from '../api';
+import ProductCard from '../../components/ProductCard';
+import Categories from '../../components/Categories';
+import api from '../../api';
 
-function SerieA() {
+function LigaArgentina() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentItemsPerPage, setCurrentItemsPerPage] = useState(10);
+  const itemsPerPage = {
+    xs: 10,
+    md: 12,
+    lg: 15,
+  };
 
   useEffect(() => {
-    const fetchSerieAProducts = async () => {
+    const fetchArgentineProducts = async () => {
       try {
-        const response = await api.get('/products/search', { params: { q: 'juventus|milan|inter' } });
-        setProducts(response.data.filter(product => !/retro/i.test(product.name)));
+
+        const response = await api.get('/products/search', { 
+          params: { 
+            q: 'boca juniors|river plate|independiente|racing|atlético tucumán' 
+          } 
+        });
+        setProducts(response.data);
       } catch (err) {
-        console.error('Error al cargar productos de la Serie A:', err);
+        console.error('Error al cargar productos de la Liga Argentina:', err);
       }
     };
-    fetchSerieAProducts();
+    fetchArgentineProducts();
   }, []);
 
-  useEffect(() => {
-    const updateItemsPerPage = () => {
-      if (window.innerWidth >= 992) {
-        setCurrentItemsPerPage(15);
-      } else if (window.innerWidth >= 768) {
-        setCurrentItemsPerPage(12);
-      } else {
-        setCurrentItemsPerPage(10);
-      }
-    };
-
-    updateItemsPerPage();
-    window.addEventListener('resize', updateItemsPerPage);
-    return () => window.removeEventListener('resize', updateItemsPerPage);
-  }, []);
-
+  const currentItemsPerPage = window.innerWidth >= 992 ? itemsPerPage.lg : 
+                             window.innerWidth >= 768 ? itemsPerPage.md : itemsPerPage.xs;
   const totalPages = Math.ceil(products.length / currentItemsPerPage);
   const paginatedProducts = products.slice(
     (currentPage - 1) * currentItemsPerPage,
@@ -47,11 +42,7 @@ function SerieA() {
 
   return (
     <Container className="my-4">
-      <Row className="d-none d-md-block mb-4">
-        <Col>
-          <img src="https://via.placeholder.com/1200x150" alt="Publicidad" className="w-100" />
-        </Col>
-      </Row>
+      <h1 className="text-center mb-4">Liga Argentina 2025</h1>
       <Row>
         <Col md={3}>
           <Categories />
@@ -60,13 +51,15 @@ function SerieA() {
           </div>
         </Col>
         <Col md={9}>
-          <Row xs={2} md={3} lg={5} className="g-4 w-100">
-            {paginatedProducts.map(product => (
-              <Col key={product._id}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          </Row>
+          <div className="d-flex flex-wrap">
+            <Row xs={2} md={3} lg={5} className="g-2 w-100">
+              {paginatedProducts.map(product => (
+                <Col key={product._id} className="h-100">
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          </div>
           {products.length > 0 && (
             <Pagination className="justify-content-center mt-4">
               <Pagination.Prev
@@ -89,7 +82,7 @@ function SerieA() {
             </Pagination>
           )}
           {products.length === 0 && (
-            <p className="text-center">No hay productos de la Serie A disponibles.</p>
+            <p className="text-center">No hay productos de la Liga Argentina disponibles.</p>
           )}
         </Col>
       </Row>
@@ -97,4 +90,4 @@ function SerieA() {
   );
 }
 
-export default SerieA;
+export default LigaArgentina;

@@ -67,3 +67,9 @@ button:focus-visible {
   }
 }
 @import '~bootstrap/dist/css/bootstrap.min.css';
+@media (max-width: 767px) {
+  .carousel-item .overflow-hidden {
+    padding-bottom: 75%; 
+
+  }
+}

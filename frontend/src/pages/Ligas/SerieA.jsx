@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Pagination } from 'react-bootstrap';
-import ProductCard from '../components/ProductCard';
-import Categories from '../components/Categories';
-import api from '../api';
+import ProductCard from '../../components/ProductCard';
+import Categories from '../../components/Categories';
+import api from '../../api';
 
-function LaLiga() {
+function SerieA() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentItemsPerPage, setCurrentItemsPerPage] = useState(10);
 
   useEffect(() => {
-    const fetchLaLigaProducts = async () => {
+    const fetchSerieAProducts = async () => {
       try {
-        const response = await api.get('/products/search', { params: { q: 'barcelona|real madrid|atlético de madrid' } });
+        const response = await api.get('/products/search', { params: { q: 'juventus|milan|inter' } });
         setProducts(response.data.filter(product => !/retro/i.test(product.name)));
       } catch (err) {
-        console.error('Error al cargar productos de LaLiga:', err);
+        console.error('Error al cargar productos de la Serie A:', err);
       }
     };
-    fetchLaLigaProducts();
+    fetchSerieAProducts();
   }, []);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ function LaLiga() {
             </Pagination>
           )}
           {products.length === 0 && (
-            <p className="text-center">No hay productos de LaLiga disponibles.</p>
+            <p className="text-center">No hay productos de la Serie A disponibles.</p>
           )}
         </Col>
       </Row>
@@ -97,4 +97,4 @@ function LaLiga() {
   );
 }
 
-export default LaLiga;
+export default SerieA;

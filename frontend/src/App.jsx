@@ -10,11 +10,11 @@ import SearchResults from './pages/SearchResults';
 import RecoverPassword from './pages/RecoverPassword';
 import AppProvider from './AppContext'; 
 import Destacado from './pages/Destacado';
-import LigaArgentina from './pages/LigaArg';
-import LaLiga from './pages/LaLiga';
-import Premier from './pages/Premier';
-import SerieA from './pages/SerieA';
-import Resto from './pages/resto';
+import LigaArgentina from './pages/Ligas/LigaArg';
+import LaLiga from './pages/Ligas/LaLiga';
+import Premier from './pages/Ligas/Premier';
+import SerieA from './pages/Ligas/SerieA';
+import Resto from './pages/Ligas/resto';
 import Contacto from './pages/contacto';
 
 function App() {
