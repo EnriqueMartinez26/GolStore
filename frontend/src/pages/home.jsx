@@ -6,9 +6,9 @@ import api from '../api';
 
 // Importa las imágenes localmente
 import boca from '../assets/Featured/Boca.jpg';
-import river from '../assets/Featured/River.jpg';
 import barcelona from '../assets/Featured/Barça.jpg';
 import atm from '../assets/Featured/ATM.jpeg';
+import mancity from '../assets/Featured/ManCity.jpg';
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -21,9 +21,9 @@ function Home() {
 
   const featuredItems = [
     { id: 1, image: boca },
-    { id: 2, image: river },
-    { id: 3, image: barcelona },
-    { id: 4, image: atm },
+    { id: 2, image: barcelona },
+    { id: 3, image: atm },
+    { id: 4, image: mancity },
   ];
 
   useEffect(() => {

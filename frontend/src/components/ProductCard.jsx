@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 function ProductCard({ product }) {
   const { addToCart, addToFavorites, removeFromFavorites, favorites } = useAppContext();
   const [isFavorite, setIsFavorite] = useState(favorites.some(item => item._id === product._id));
-  const [isPurchased, setIsPurchased] = useState(false); // Estado para "Comprar"
+  const [isPurchased, setIsPurchased] = useState(false);
 
   const handleFavorite = () => {
     if (!product._id) {
@@ -24,16 +24,18 @@ function ProductCard({ product }) {
   };
 
   const handlePurchase = () => {
-    addToCart(product); // Llama a la función del contexto para agregar al carrito
-    setIsPurchased(true); // Marca como comprado
-    // Opcional: resetea el checkmark después de 2 segundos
-    setTimeout(() => setIsPurchased(false), 2000); // Resetear después de 2 segundos
+    addToCart(product);
+    setIsPurchased(true);
+    setTimeout(() => setIsPurchased(false), 2000);
   };
 
   const formattedPrice = `$${product.price.toLocaleString('en-US', { maximumFractionDigits: 0 })}`;
 
   return (
-    <Card className="h-100 d-flex flex-column shadow-sm" style={{ minHeight: '320px', borderRadius: '12px' }}>
+    <Card 
+      className="h-100 d-flex flex-column shadow-sm" 
+      style={{ width: '190px', minHeight: '320px', borderRadius: '12px' }}
+    >
       <Card.Img 
         variant="top" 
         src={product.image} 
