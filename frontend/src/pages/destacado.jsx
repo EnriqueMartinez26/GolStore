@@ -5,7 +5,7 @@ import { Check } from 'react-bootstrap-icons';
 import { useAppContext } from '../AppContextUtils';
 import { Link } from 'react-router-dom';
 import api from '../api';
-import golstore from '../assets/golstore.jpg';
+import golstore from '../assets/GolStore.jpg';
 
 function Destacado() {
   const [featuredProducts, setFeaturedProducts] = useState([]);
