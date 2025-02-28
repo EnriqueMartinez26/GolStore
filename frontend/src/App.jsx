@@ -14,7 +14,7 @@ import LigaArgentina from './pages/Ligas/LigaArg';
 import LaLiga from './pages/Ligas/LaLiga';
 import Premier from './pages/Ligas/Premier';
 import SerieA from './pages/Ligas/SerieA';
-import Resto from './pages/Ligas/resto';
+import Resto from './pages/Ligas/Resto';
 import Contacto from './pages/contacto';
 
 function App() {
