@@ -9,7 +9,7 @@
     "routes": [
       {
         "src": "/GolStore/backend/",
-        "dest": "/"
+        "dest": "./"
       }
     ]
   }
