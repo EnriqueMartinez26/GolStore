@@ -13,8 +13,8 @@
       }
     ],
     "env": {
-      "MONGODB_URI": "@mongodb_uri",
-      "PORT": "3000"
+      "MONGODB_URI": "mongodb://localhost:27017/golstore",
+      "PORT": "5000"
     }
   }
   
