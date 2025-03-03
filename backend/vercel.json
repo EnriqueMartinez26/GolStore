@@ -1,15 +1,20 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
+    "version": 2,
+    "builds": [
+      {
+        "src": "backend/server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "backend/server.js"
+      }
+    ],
+    "env": {
+      "MONGODB_URI": "@mongodb_uri",
+      "PORT": "3000"
     }
-  ],
-  "routes": [
-    {
-      "src": "/GolStore/backend/",
-      "dest": "/"
-    }
-  ]
-}
+  }
+  
