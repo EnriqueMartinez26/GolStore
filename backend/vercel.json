@@ -8,11 +8,7 @@
     ],
     "routes": [
       {
-<<<<<<< HEAD
-        "src": "/GolStore/backend/(.*)",
-=======
         "src": "/(.*)",
->>>>>>> parent of 1b6ab61 (Update vercel.json)
         "dest": "server.js"
       }
     ]
