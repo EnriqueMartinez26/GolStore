@@ -8,8 +8,8 @@
     ],
     "routes": [
       {
-        "src": "/GolStore/backend/",
-        "dest": "./"
+        "src": "./",
+        "dest": "server.js"
       }
     ]
   }
