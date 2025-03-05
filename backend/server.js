@@ -27,7 +27,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('Conectado a MongoDB'))
 .catch(err => console.error('Error al conectar a MongoDB:', err));
 
-// Si deseas que tu servidor funcione localmente, puedes condicionar la llamada a listen:
 if (!process.env.VERCEL_ENV) {
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => {
@@ -35,5 +34,4 @@ if (!process.env.VERCEL_ENV) {
   });
 }
 
-// Exporta la aplicación para que Vercel la utilice como función serverless
 module.exports = app;
