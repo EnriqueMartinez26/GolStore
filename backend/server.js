@@ -14,9 +14,7 @@ let isConnected;
 async function connectDB() {
   if (isConnected) return;
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      useUnifiedTopology: true,
-    });
+    const conn = await mongoose.connect(process.env.MONGO_URI);
     isConnected = conn.connections[0].readyState;
     console.log('Conectado a MongoDB');
   } catch (err) {
