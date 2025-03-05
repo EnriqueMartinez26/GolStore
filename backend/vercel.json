@@ -11,12 +11,5 @@
       "src": "/(.*)",
       "dest": "server.js"  
     }
-  ],
-  "config": {
-    "functions": {
-      "pages/api/**": {
-        "maxDuration": 300
-      }
-    }
-  }
+  ]
 }
