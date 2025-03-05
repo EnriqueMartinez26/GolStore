@@ -5,7 +5,7 @@ require('dotenv').config();
 mongoose.connect(process.env.MONGO_URI)
   .then(async () => {
     console.log('Conectado a MongoDB');
-    await Product.deleteMany(); // Limpia la colección
+    await Product.deleteMany();
     await Product.insertMany([
       { name: 'Camiseta Boca Juniors', price: 60, image: 'https://via.placeholder.com/150', description: 'Camiseta oficial de Boca Juniors 2025' },
       { name: 'Camiseta River Plate', price: 70, image: 'https://via.placeholder.com/150', description: 'Camiseta oficial de River Plate 2025' },
