@@ -4,6 +4,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
+const cors = require('cors');
+app.use(cors({ origin: '*' }));
 
 const app = express();
 
@@ -28,6 +30,4 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => console.error('Error al conectar a MongoDB:', err));
 
 
-
-// Exporta la aplicación para que Vercel la utilice como función serverless
 module.exports = app;
