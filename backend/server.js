@@ -9,29 +9,39 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-let isConnected;
+// Modificación del manejo de conexión
+let cachedConnection = null;
 
 async function connectDB() {
-  if (isConnected) return;
+  if (cachedConnection) {
+    return cachedConnection;
+  }
+
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    isConnected = conn.connections[0].readyState;
-    console.log('Conectado a MongoDB');
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 5000, // 5 segundos timeout
+      socketTimeoutMS: 5000
+    });
+    
+    cachedConnection = conn;
+    return conn;
   } catch (err) {
-    console.error('Error al conectar a MongoDB:', err);
+    console.error('Error MongoDB:', err);
     throw err;
   }
 }
 
+// Modificar el middleware de conexión
 app.use(async (req, res, next) => {
   try {
-    await connectDB();
+    if (!cachedConnection) {
+      await connectDB();
+    }
     next();
   } catch (error) {
-    next(error);
+    res.status(500).json({ error: 'Database connection failed' });
   }
 });
-
 
 const productRoutes = require('./routes/products');
 const authRoutes = require('./routes/auth');
